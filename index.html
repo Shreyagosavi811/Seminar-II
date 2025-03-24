@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildlife Identification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+
+        }
+
+        /* Full-screen container */
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Full-screen image (no overflow) */
+        .container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            
+        }
+
+        /* Centered text block */
+        .text-block {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+            
+            font-family: 'Arial', sans-serif; 
+            font-size: 2rem;
+            line-height: 1.5; 
+            font-weight: bold; 
+            color: #F8F9FA;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7); 
+
+            z-index: 1; 
+
+            text-align: center;
+            padding: 30px;
+            width: 60%;
+            max-width: 800px;
+            border-radius: 30px;
+        }
+        
+
+        .text-block h4 {
+            font-size: 50px;
+            margin-bottom: 10px;
+        }
+
+        .text-block p {
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+
+        /* Join button styling */
+        .join-btn {
+            display: inline-block;
+            background-color: white;
+            color: midnightblue;
+            font-size: 24px;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid midnightblue;
+        }
+
+        .join-btn:hover {
+            background-color: midnightblue;
+            color: white;
+        }
+
+        /* Responsive styles for mobile */
+        @media screen and (max-width: 768px) {
+            .text-block {
+                width: 90%;
+                padding: 20px;
+            }
+            .text-block h4 {
+                font-size: 35px;
+            }
+            .text-block p {
+                font-size: 18px;
+            }
+            .join-btn {
+                font-size: 18px;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+
+    <script>
+        var i = 0;
+        var images = ["https://i.pinimg.com/736x/e3/4e/a2/e34ea2eb12268c5dde4295b490d817e7.jpg", "https://i.pinimg.com/736x/55/6b/17/556b17dda34fb7593f7fb431d68c3c03.jpg", "https://i.pinimg.com/736x/09/69/8a/09698a93e8265952caba413b6301c97d.jpg", "https://i.pinimg.com/736x/b8/ff/9b/b8ff9b37514784d0875003276e48e8ba.jpg"];
+        var time = 2000;
+
+        function changeImg() {
+            document.getElementById("slide").src = images[i];
+            i = (i + 1) % images.length;
+            setTimeout(changeImg, time);
+        }
+
+        window.onload = changeImg;
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <img id="slide" alt="Slideshow Image">
+    <div class="text-block">
+        <h4>AI Wildlife Identification Platform</h4>
+        <p>"Snap. Identify. Conserve. – AI-Powered Wildlife Recognition at Your Fingertips!" 🌿📸🐾</p>
+        <a href="base.html" class="join-btn">Join With Us</a>
+    </div>
+</div>
+
+</body>
+</html>

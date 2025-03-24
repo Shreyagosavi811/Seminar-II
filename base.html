@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wildlife Identification</title>
+    <style>
+    body { 
+        font-family: Arial, sans-serif; 
+        text-align: center; 
+        margin: 0;
+        padding: 0;
+        background-image: url("https://imageio.forbes.com/specials-images/imageserve/62451842b4119527db1e176f/0x0.jpg?format=jpg&height=600&width=1200&fit=bounds");
+        background-size: cover; 
+        background-position: center; 
+        background-attachment: fixed; /* Keeps background fixed while scrolling */
+    }
+    
+    /* Text block styling */
+    .text-block {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+        
+        font-family: 'Arial', sans-serif;
+        font-size: 2rem;
+        line-height: 1.5;
+        font-weight: bold;
+        color: #F8F9FA;
+        text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7);
+    
+        z-index: 1;
+        text-align: center;
+        padding: 30px;
+        width: 60%;
+        max-width: 800px;
+        border-radius: 30px;
+    }
+    
+    /* Image Container */
+    #imageContainer { 
+        margin-top: 20px; 
+        display: none; 
+        border: 2px solid #ddd; 
+        padding: 10px; 
+        border-radius: 10px; 
+        width: 320px; 
+        margin-left: auto; 
+        margin-right: auto; 
+    }
+    #preview { 
+        max-width: 100%; 
+        border-radius: 5px; 
+    }
+    
+    /* Result text */
+    #result { 
+        font-size: 20px; 
+        margin-top: 20px; 
+    }
+    
+    /* Responsive styles for tablets & mobiles */
+    @media screen and (max-width: 1024px) {
+        .text-block {
+            width: 80%;
+            font-size: 1.8rem;
+            padding: 25px;
+        }
+    }
+    
+    @media screen and (max-width: 768px) {
+        .text-block {
+            width: 90%;
+            font-size: 1.5rem;
+            padding: 20px;
+            border-radius: 20px;
+        }
+    }
+    
+    @media screen and (max-width: 480px) {
+        .text-block {
+            width: 95%;
+            font-size: 1.2rem;
+            padding: 15px;
+            border-radius: 15px;
+        }
+    
+        #result {
+            font-size: 16px;
+        }
+    }
+</style>    
+</head>
+<body>
+    <div class="text-block">
+    <h1>AI-Powered Wildlife Identification</h1>
+    
+    <input type="file" id="imageInput" accept="image/*">
+    
+    <div id="imageContainer">
+        <img id="preview" src="" alt="Image Preview">
+    </div>
+    
+    <button onclick="uploadImage()">Predict</button>
+    
+    <p id="result"></p>
+    </div>
+
+    <script>
+        function uploadImage() {
+            let fileInput = document.getElementById("imageInput");
+            if (fileInput.files.length === 0) {
+                alert("Please select an image first!");
+                return;
+            }
+
+            let file = fileInput.files[0];
+            let formData = new FormData();
+            formData.append("image", file);
+
+            fetch("http://127.0.0.1:5000/predict", {  // Change URL after deployment
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerText = "Predicted Class: " + data.class_name;
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        document.getElementById("imageInput").addEventListener("change", function(event) {
+            let img = document.getElementById("preview");
+            let container = document.getElementById("imageContainer");
+
+            img.src = URL.createObjectURL(event.target.files[0]);
+            container.style.display = "block";  // Show the div when an image is selected
+        });
+    </script>
+
+</body>
+</html>
